@@ -4,6 +4,7 @@ import com.google.genai.types.GenerateContentConfig;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class PromptBuilder {
     @Getter
@@ -19,5 +20,16 @@ public class PromptBuilder {
         return GenerateContentConfig.builder()
                 .temperature((float) temperature)
                 .build();
+    }
+
+    public String buildDomainPrompt(String companyDescription) {
+        return buildDomainPrompt(companyDescription, 10);
+    }
+
+    public String buildDomainPrompt(String companyDescription, int count) {
+        return String.format(PromptTemplates.DOMAIN_PROMPT,
+                companyDescription.trim(),
+                count,
+                count);
     }
 }
