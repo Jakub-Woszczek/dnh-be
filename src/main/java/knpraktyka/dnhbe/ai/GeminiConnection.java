@@ -7,6 +7,7 @@ import lombok.Getter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Component
@@ -29,18 +30,21 @@ public class GeminiConnection {
                 .build();
     }
 
-    public List<String> query(String companyDescription){
+    public Optional<List<String>> query(String companyDescription){
         return query(companyDescription, 10);
     }
 
-    public List<String> query(String companyDescription, int count){
+    public Optional<List<String>> query(String companyDescription, int count){
         GenerateContentResponse response = client.models.generateContent(
                 properties.getModel(),
                 buildPrompt(companyDescription, count),
                 config
         );
 
-        return List.of(response.text().split(", "));
+        if(response.text() == null)
+            return Optional.empty();
+        else
+            return Optional.of(List.of(response.text().split(", ")));
     }
 
     private String buildPrompt(String companyDescription, int count){
