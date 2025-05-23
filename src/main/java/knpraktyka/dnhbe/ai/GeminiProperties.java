@@ -17,7 +17,7 @@ public class GeminiProperties {
     @Getter
     @Setter
     public static class Settings {
-        private double temperature;
+        private float temperature;
         private int maxTokens;
     }
 }
