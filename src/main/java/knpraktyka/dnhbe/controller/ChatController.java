@@ -8,7 +8,7 @@ import java.util.Optional;
 
 
 /**
- * Class respon
+ * Endpoint for prompting AI
  */
 @RestController
 @RequestMapping("/api")
